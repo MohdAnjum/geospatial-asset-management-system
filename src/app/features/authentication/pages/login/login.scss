@@ -1,0 +1,65 @@
+/* Full-viewport dark backdrop with a subtle radial glow behind the card. */
+.login-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background:
+    radial-gradient(900px 500px at 50% -10%, rgba(30, 144, 255, 0.18), transparent 60%),
+    var(--issa-bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px;
+  background: var(--issa-surface);
+  border: 1px solid var(--issa-border);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    i {
+      font-size: 32px;
+      color: var(--issa-accent);
+    }
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+    p {
+      margin: 2px 0 0;
+      font-size: 12px;
+    }
+  }
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+
+  input { width: 100%; }
+}
+
+/* p-password renders a wrapper; make it and its input span the full width. */
+:host ::ng-deep .login-password,
+:host ::ng-deep .login-password__input {
+  width: 100%;
+}
+
+.login-error { color: #ff6b6b; font-size: 11px; }
+.login-hint  { text-align: center; font-size: 11px; }
+
+:host ::ng-deep .login-submit { width: 100%; }
+:host ::ng-deep .login-submit .p-button { width: 100%; justify-content: center; }

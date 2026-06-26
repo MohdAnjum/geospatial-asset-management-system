@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" class="app-dark">
+<head>
+  <meta charset="utf-8">
+  <title>ISSA POC — Geospatial Asset Management</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!--
+    CESIUM (3D globe) — loaded as a classic <script> so it attaches to the
+    global `window.Cesium`. CesiumViewComponent feature-detects this global and
+    falls back to a plain altitude table if it is missing, so the app NEVER
+    crashes if these files fail to load.
+
+    `CESIUM_BASE_URL` must be set BEFORE Cesium.js runs so it can find its
+    Workers / Assets / Widgets. The /cesium folder is copied at build time from
+    node_modules/cesium/Build/Cesium (see angular.json "assets").
+  -->
+  <script>window.CESIUM_BASE_URL = '/cesium/';</script>
+  <link href="/cesium/Widgets/widgets.css" rel="stylesheet">
+  <script src="/cesium/Cesium.js"></script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

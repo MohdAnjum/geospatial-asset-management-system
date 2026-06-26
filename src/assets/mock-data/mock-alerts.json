@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "asset_name": "Debris #2024-A",
+    "message": "Proximity warning -- within 15km of RISAT-2BR1",
+    "severity": "critical",
+    "acknowledged": false,
+    "created_at": "2026-06-24T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "asset_name": "Debris #2024-B",
+    "message": "Approaching CARTOSAT-3 orbital plane",
+    "severity": "high",
+    "acknowledged": false,
+    "created_at": "2026-06-24T09:30:00Z"
+  },
+  {
+    "id": 3,
+    "asset_name": "Delhi Radar Array",
+    "message": "Entered maintenance mode",
+    "severity": "medium",
+    "acknowledged": true,
+    "created_at": "2026-06-24T08:00:00Z"
+  }
+]

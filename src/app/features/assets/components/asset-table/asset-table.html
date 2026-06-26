@@ -1,0 +1,112 @@
+<!--
+  ASSET TABLE PANEL
+  Toolbar (search + status filter + add) sits above a scrollable PrimeNG table.
+-->
+<div class="asset-panel">
+  <!-- Toolbar -->
+  <div class="asset-panel__toolbar">
+    <span class="asset-search">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        placeholder="Search by name…"
+        (input)="onSearch($any($event.target).value)"
+      />
+    </span>
+
+    <p-select
+      [options]="statusOptions"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Status"
+      [showClear]="true"
+      [ngModel]="statusFilter()"
+      (ngModelChange)="statusFilter.set($event)"
+      styleClass="asset-status-filter"
+      appendTo="body"
+    />
+
+    <p-button icon="pi pi-plus" label="Add" size="small" (onClick)="openAdd()" />
+  </div>
+
+  <!-- Table -->
+  <p-table
+    [value]="filtered()"
+    [scrollable]="true"
+    scrollHeight="flex"
+    [rowHover]="true"
+    dataKey="id"
+    styleClass="p-datatable-sm asset-table"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th class="num">Lat</th>
+        <th class="num">Lon</th>
+        <th class="num">Alt (km)</th>
+        <th class="actions-col">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-asset>
+      <tr
+        [class.row-selected]="selectedId() === asset.id"
+        (click)="onRowClick(asset)"
+      >
+        <td>
+          <span class="status-dot" [style.background]="statusColor(asset.status)"></span>
+          {{ asset.name }}
+        </td>
+        <td>{{ asset.asset_type }}</td>
+        <td><span class="status-tag">{{ asset.status }}</span></td>
+        <td class="num">{{ asset.latitude | number: '1.2-4' }}</td>
+        <td class="num">{{ asset.longitude | number: '1.2-4' }}</td>
+        <td class="num">{{ asset.altitude_km | number: '1.0-1' }}</td>
+        <td class="actions-col">
+          <button class="icon-btn" title="View details" (click)="showDetail(asset, $event)">
+            <i class="pi pi-eye"></i>
+          </button>
+          <button class="icon-btn danger" title="Remove" (click)="remove(asset, $event)">
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="empty">No assets match your filters.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Add-asset dialog (self-managed; updates the shared store on save) -->
+<app-asset-form-dialog [(visible)]="addVisible" />
+
+<!-- Read-only detail dialog -->
+<p-dialog
+  header="Asset details"
+  [(visible)]="detailVisible"
+  [modal]="true"
+  [style]="{ width: '360px' }"
+  [dismissableMask]="true"
+>
+  @if (detailAsset(); as a) {
+    <div class="detail">
+      <div class="detail__row"><span class="issa-muted">Name</span><span>{{ a.name }}</span></div>
+      <div class="detail__row"><span class="issa-muted">Type</span><span>{{ a.asset_type }}</span></div>
+      <div class="detail__row">
+        <span class="issa-muted">Status</span>
+        <span><span class="status-dot" [style.background]="statusColor(a.status)"></span>{{ a.status }}</span>
+      </div>
+      <div class="detail__row"><span class="issa-muted">Latitude</span><span>{{ a.latitude }}</span></div>
+      <div class="detail__row"><span class="issa-muted">Longitude</span><span>{{ a.longitude }}</span></div>
+      <div class="detail__row"><span class="issa-muted">Altitude</span><span>{{ a.altitude_km }} km</span></div>
+      <div class="detail__row"><span class="issa-muted">Speed</span><span>{{ a.speed_kmph }} km/h</span></div>
+    </div>
+  }
+</p-dialog>

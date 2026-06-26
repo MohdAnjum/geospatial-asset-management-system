@@ -1,0 +1,48 @@
+<!--
+  CESIUM VIEW
+  The #globeEl div is always present (Cesium renders into it). We overlay the
+  camera buttons only when the globe is live, and show the fallback table when
+  cesiumReady() is false.
+-->
+<div class="cesium-wrap">
+  <!-- Globe render target (filled by Cesium when available) -->
+  <div #globeEl class="cesium-canvas" [class.hidden]="cesiumReady() === false"></div>
+
+  <!-- Camera controls — only meaningful when the globe is live -->
+  @if (cesiumReady() === true) {
+    <div class="cesium-controls">
+      <button type="button" (click)="flyToIndia()"><i class="pi pi-map-marker"></i> India view</button>
+      <button type="button" (click)="flyToSpace()"><i class="pi pi-globe"></i> Space view</button>
+    </div>
+  }
+
+  <!-- FALLBACK: shown when Cesium is unavailable / failed to start -->
+  @if (cesiumReady() === false) {
+    <div class="cesium-fallback">
+      <div class="cesium-fallback__note">
+        <i class="pi pi-info-circle"></i>
+        3D globe unavailable — showing orbital assets (altitude &gt; 100 km).
+      </div>
+      <table class="cesium-fallback__table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th class="num">Altitude (km)</th>
+            <th class="num">Speed (km/h)</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (a of orbitalAssets(); track a.id) {
+            <tr>
+              <td>{{ a.name }}</td>
+              <td class="num">{{ a.altitude_km | number }}</td>
+              <td class="num">{{ a.speed_kmph | number }}</td>
+            </tr>
+          } @empty {
+            <tr><td colspan="3" class="empty">No orbital assets.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

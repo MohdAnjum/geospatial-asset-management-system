@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.2090, 28.6139, 576] },
+      "properties": { "id": 1, "name": "RISAT-2BR1", "asset_type": "Satellite", "status": "active", "altitude_km": 576, "speed_kmph": 7800, "color": "#1565C0" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [80.2707, 13.0827, 509] },
+      "properties": { "id": 2, "name": "CARTOSAT-3", "asset_type": "Satellite", "status": "active", "altitude_km": 509, "speed_kmph": 7600, "color": "#1565C0" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [88.3639, 22.5726, 35786] },
+      "properties": { "id": 3, "name": "GSAT-7A", "asset_type": "Satellite", "status": "active", "altitude_km": 35786, "speed_kmph": 0, "color": "#1565C0" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.1025, 28.7041, 0] },
+      "properties": { "id": 4, "name": "Delhi TTC Station", "asset_type": "Ground Station", "status": "active", "altitude_km": 0, "speed_kmph": 0, "color": "#2E7D32" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [80.2304, 13.7199, 0] },
+      "properties": { "id": 5, "name": "SDSC SHAR", "asset_type": "Ground Station", "status": "active", "altitude_km": 0, "speed_kmph": 0, "color": "#2E7D32" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.2090, 28.6139, 0] },
+      "properties": { "id": 6, "name": "Delhi Radar Array", "asset_type": "Radar", "status": "maintenance", "altitude_km": 0, "speed_kmph": 0, "color": "#E65100" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [73.0243, 26.2389, 0] },
+      "properties": { "id": 7, "name": "Jodhpur Radar", "asset_type": "Radar", "status": "active", "altitude_km": 0, "speed_kmph": 0, "color": "#E65100" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [76.0, 32.0, 420] },
+      "properties": { "id": 8, "name": "Debris #2024-A", "asset_type": "Space Debris", "status": "critical", "altitude_km": 420, "speed_kmph": 7900, "color": "#C62828" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [84.0, 20.0, 410] },
+      "properties": { "id": 9, "name": "Debris #2024-B", "asset_type": "Space Debris", "status": "critical", "altitude_km": 410, "speed_kmph": 7850, "color": "#C62828" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [77.5770, 34.1526, 3.5] },
+      "properties": { "id": 10, "name": "Leh Observation Post", "asset_type": "Observation Post", "status": "active", "altitude_km": 3.5, "speed_kmph": 0, "color": "#00695C" }
+    }
+  ]
+}

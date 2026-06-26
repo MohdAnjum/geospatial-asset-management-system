@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.asset-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* allow the table to scroll within a flex column */
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-bottom: 1px solid var(--issa-border);
+  }
+}
+
+/* Search box with a leading icon. */
+.asset-search {
+  position: relative;
+  flex: 1;
+
+  i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--issa-text-muted);
+    font-size: 12px;
+  }
+  input {
+    width: 100%;
+    padding-left: 30px;
+  }
+}
+
+:host ::ng-deep .asset-status-filter { min-width: 130px; }
+
+/* Table fills remaining height and scrolls internally. */
+:host ::ng-deep .asset-table {
+  flex: 1;
+  min-height: 0;
+}
+
+.num { text-align: right; }
+.actions-col { text-align: center; white-space: nowrap; }
+
+tr.row-selected > td {
+  background: rgba(30, 144, 255, 0.16) !important;
+}
+
+.status-tag {
+  text-transform: capitalize;
+  font-size: 12px;
+}
+
+/* Compact icon action buttons. */
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--issa-text-muted);
+  padding: 4px 6px;
+  border-radius: 4px;
+
+  &:hover { color: var(--issa-text); background: var(--issa-surface-2); }
+  &.danger:hover { color: #ff6b6b; }
+}
+
+.empty { text-align: center; color: var(--issa-text-muted); padding: 24px; }
+
+/* Detail dialog rows. */
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    text-transform: capitalize;
+  }
+}

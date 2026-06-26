@@ -1,0 +1,53 @@
+<!--
+  MAP VIEW
+  The #mapEl div is OpenLayers' render target (must have an explicit size — see
+  the scss). Floating controls sit on top; the popup is teleported by ol/Overlay
+  to hover above the selected marker.
+-->
+<div class="map-wrap">
+  <!-- OpenLayers renders here -->
+  <div #mapEl class="map-canvas"></div>
+
+  <!-- Top-left: base-layer switcher -->
+  <div class="map-controls map-controls--layers">
+    <button
+      type="button"
+      [class.active]="activeBase() === 'osm'"
+      (click)="showBase('osm')"
+    >
+      <i class="pi pi-map"></i> Street
+    </button>
+    <button
+      type="button"
+      [class.active]="activeBase() === 'satellite'"
+      (click)="showBase('satellite')"
+    >
+      <i class="pi pi-globe"></i> Satellite
+    </button>
+  </div>
+
+  <!-- Top-right: fit-all -->
+  <div class="map-controls map-controls--actions">
+    <button type="button" (click)="fitAll()" title="Fit all assets">
+      <i class="pi pi-arrows-alt"></i> Fit all
+    </button>
+  </div>
+
+  <!--
+    Selection popup. Always in the DOM (ol/Overlay needs the element); we just
+    toggle its visibility via @if so it disappears when nothing is selected.
+  -->
+  <div #popupEl>
+    @if (popup(); as info) {
+      <div class="ol-asset-popup">
+        <span class="ol-asset-popup__close" (click)="closePopup()">
+          <i class="pi pi-times"></i>
+        </span>
+        <div class="ol-asset-popup__title">{{ info.name }}</div>
+        <div class="ol-asset-popup__row"><span class="issa-muted">Type</span><span>{{ info.type }}</span></div>
+        <div class="ol-asset-popup__row"><span class="issa-muted">Status</span><span>{{ info.status }}</span></div>
+        <div class="ol-asset-popup__row"><span class="issa-muted">Altitude</span><span>{{ info.altitude }} km</span></div>
+      </div>
+    }
+  </div>
+</div>

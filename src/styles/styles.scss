@@ -1,0 +1,12 @@
+﻿/* =============================================================
+   Global stylesheet orchestrator
+   Imports are ordered: abstracts -> base -> themes -> layout
+   -> components -> pages -> utilities (most specific last).
+   ============================================================= */
+@use 'abstracts' as *;
+@use 'base';
+@use 'themes';
+@use 'layout';
+@use 'components';
+@use 'pages';
+@use 'utilities';

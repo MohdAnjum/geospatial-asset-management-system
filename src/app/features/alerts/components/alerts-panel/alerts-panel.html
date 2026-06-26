@@ -1,0 +1,41 @@
+<!--
+  ALERTS PANEL
+  Header with unread badge, then a scrollable list of severity-coloured cards.
+-->
+<div class="alerts">
+  <div class="alerts__header">
+    <span><i class="pi pi-bell"></i> Alerts</span>
+    @if (unreadCount() > 0) {
+      <span class="alerts__badge">{{ unreadCount() }}</span>
+    }
+  </div>
+
+  <div class="alerts__list">
+    @for (alert of alerts(); track alert.id) {
+      <!-- Left border colour encodes severity; acknowledged cards are dimmed. -->
+      <div
+        class="alert-card"
+        [class.acknowledged]="alert.acknowledged"
+        [style.border-left-color]="severityColor(alert.severity)"
+      >
+        <div class="alert-card__top">
+          <span class="alert-card__asset">{{ alert.asset_name }}</span>
+          <span class="alert-card__sev" [style.color]="severityColor(alert.severity)">
+            {{ alert.severity }}
+          </span>
+        </div>
+        <p class="alert-card__msg">{{ alert.message }}</p>
+        <div class="alert-card__bottom">
+          <span class="alert-card__time">{{ alert.created_at | date: 'short' }}</span>
+          @if (alert.acknowledged) {
+            <span class="alert-card__ackd"><i class="pi pi-check"></i> Acknowledged</span>
+          } @else {
+            <button class="alert-card__ack" (click)="acknowledge(alert)">ACK</button>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="alerts__empty">No active alerts.</div>
+    }
+  </div>
+</div>

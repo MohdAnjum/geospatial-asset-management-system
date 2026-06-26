@@ -1,0 +1,63 @@
+<!--
+  LOGIN SCREEN
+  Centered card on a dark backdrop. The form is driven by the reactive
+  FormGroup in login.ts; validation messages show only after a field is touched.
+-->
+<div class="login-shell">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Brand / title -->
+    <div class="login-card__brand">
+      <i class="pi pi-globe"></i>
+      <div>
+        <h1>ISSA POC</h1>
+        <p class="issa-muted">Geospatial Asset Management</p>
+      </div>
+    </div>
+
+    <!-- Username -->
+    <label class="login-field">
+      <span>Username</span>
+      <input
+        type="text"
+        pInputText
+        formControlName="username"
+        placeholder="admin"
+        autocomplete="username"
+      />
+      @if (form.controls.username.touched && form.controls.username.invalid) {
+        <small class="login-error">Username is required.</small>
+      }
+    </label>
+
+    <!-- Password -->
+    <label class="login-field">
+      <span>Password</span>
+      <p-password
+        formControlName="password"
+        [feedback]="false"
+        [toggleMask]="true"
+        placeholder="••••••••"
+        styleClass="login-password"
+        inputStyleClass="login-password__input"
+      />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <small class="login-error">Password is required.</small>
+      }
+    </label>
+
+    <!-- Submit -->
+    <p-button
+      type="submit"
+      label="Sign in"
+      icon="pi pi-sign-in"
+      [loading]="loading()"
+      styleClass="login-submit"
+    />
+
+    @if (mockMode) {
+      <small class="login-hint issa-muted">
+        Mock mode is on — any non-empty credentials will sign you in.
+      </small>
+    }
+  </form>
+</div>

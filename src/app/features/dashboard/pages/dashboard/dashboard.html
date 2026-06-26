@@ -1,0 +1,57 @@
+<div class="dash">
+  <!-- ======================= TOP NAV (52px) ======================= -->
+  <header class="dash__nav">
+    <div class="dash__brand">
+      <i class="pi pi-globe"></i>
+      <span>ISSA POC</span>
+    </div>
+
+    <!-- Active asset count chip -->
+    <span class="dash__chip">
+      <span class="status-dot" style="background:#00ff88"></span>
+      {{ activeCount() }} active / {{ totalCount() }} assets
+    </span>
+
+    <span class="dash__spacer"></span>
+
+    <!-- 2D / 3D toggle -->
+    <div class="dash__toggle">
+      <button [class.active]="viewMode() === '2d'" (click)="setView('2d')">
+        <i class="pi pi-map"></i> 2D Map
+      </button>
+      <button [class.active]="viewMode() === '3d'" (click)="setView('3d')">
+        <i class="pi pi-globe"></i> 3D Globe
+      </button>
+    </div>
+
+    <!-- User + logout -->
+    <span class="dash__user">
+      <i class="pi pi-user"></i>
+      {{ user()?.full_name ?? 'User' }}
+    </span>
+    <button class="dash__logout" (click)="logout()" title="Sign out">
+      <i class="pi pi-sign-out"></i>
+    </button>
+  </header>
+
+  <!-- ======================= 3-PANEL BODY ======================= -->
+  <div class="dash__body">
+    <!-- Left: alerts -->
+    <aside class="dash__left">
+      <app-alerts-panel />
+    </aside>
+
+    <!-- Centre: map (always mounted) + cesium (lazy, kept alive) -->
+    <section class="dash__centre">
+      <app-map-view [class.hidden]="viewMode() !== '2d'" />
+      @if (cesiumMounted()) {
+        <app-cesium-view [class.hidden]="viewMode() !== '3d'" />
+      }
+    </section>
+
+    <!-- Right: asset table -->
+    <aside class="dash__right">
+      <app-asset-table />
+    </aside>
+  </div>
+</div>

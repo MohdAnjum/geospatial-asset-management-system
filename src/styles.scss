@@ -1,0 +1,89 @@
+/* ============================================================================
+ *  GLOBAL STYLESHEET
+ * ============================================================================
+ *  App-wide dark theme, resets, design tokens and a few shared helpers. Per-
+ *  component styling lives in each component's own .scss file. PrimeNG's own
+ *  theme is injected at runtime (styled mode) — here we only set the page
+ *  chrome (background, fonts, scrollbars) and the OpenLayers popup look.
+ * ========================================================================== */
+
+/* ---- Design tokens (dark "operations console" palette) ------------------- */
+:root {
+  --issa-bg: #0b1220;          /* app background            */
+  --issa-surface: #111a2b;     /* panels / cards            */
+  --issa-surface-2: #16233a;   /* raised surfaces / headers */
+  --issa-border: #243450;      /* hairline borders          */
+  --issa-text: #e6edf6;        /* primary text              */
+  --issa-text-muted: #8aa0bd;  /* secondary text            */
+  --issa-accent: #1e90ff;      /* brand accent / links      */
+  --issa-navbar-h: 52px;       /* fixed top nav height (FE-2) */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--issa-bg);
+  color: var(--issa-text);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Thin dark scrollbars to match the console aesthetic. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--issa-border) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--issa-border); border-radius: 4px; }
+
+/* ---- Small shared helpers ------------------------------------------------ */
+.issa-muted { color: var(--issa-text-muted); }
+
+/* A 7px circular colour dot — used by the table and popups to show status. */
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ---- OpenLayers selection popup ------------------------------------------ *
+ * The map renders an ol/Overlay anchored to the clicked marker; this styles
+ * that floating card (markup lives in MapComponent's template).
+ * -------------------------------------------------------------------------- */
+.ol-asset-popup {
+  position: absolute;
+  min-width: 200px;
+  background: var(--issa-surface-2);
+  border: 1px solid var(--issa-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--issa-text);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, calc(-100% - 14px));
+  pointer-events: auto;
+  font-size: 12px;
+}
+.ol-asset-popup::after {                       /* little downward arrow */
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--issa-surface-2);
+}
+.ol-asset-popup__title { font-weight: 600; margin-bottom: 4px; }
+.ol-asset-popup__close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  cursor: pointer;
+  color: var(--issa-text-muted);
+}
+.ol-asset-popup__row { display: flex; justify-content: space-between; gap: 12px; }

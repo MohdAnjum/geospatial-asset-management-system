@@ -1,0 +1,52 @@
+/* The component fills whatever the dashboard centre panel gives it. */
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* OpenLayers needs a sized target element or tiles won't render. */
+.map-canvas {
+  position: absolute;
+  inset: 0;
+  background: #0b1220;
+}
+
+/* Floating control clusters over the map. */
+.map-controls {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  gap: 6px;
+
+  &--layers { top: 10px; left: 10px; }
+  &--actions { top: 10px; right: 10px; }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--issa-text);
+    background: rgba(17, 26, 43, 0.9);
+    border: 1px solid var(--issa-border);
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover { background: rgba(22, 35, 58, 0.95); }
+    &.active {
+      border-color: var(--issa-accent);
+      color: #fff;
+      background: rgba(30, 144, 255, 0.25);
+    }
+  }
+}

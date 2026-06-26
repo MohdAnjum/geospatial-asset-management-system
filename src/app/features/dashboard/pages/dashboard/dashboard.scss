@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.dash {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ----------------------------- TOP NAV ----------------------------- */
+.dash__nav {
+  height: var(--issa-navbar-h);
+  flex: 0 0 var(--issa-navbar-h);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 14px;
+  background: var(--issa-surface-2);
+  border-bottom: 1px solid var(--issa-border);
+}
+
+.dash__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  i { color: var(--issa-accent); font-size: 18px; }
+}
+
+.dash__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 12px;
+  background: var(--issa-surface);
+  border: 1px solid var(--issa-border);
+  border-radius: 14px;
+}
+
+.dash__spacer { flex: 1; }
+
+.dash__toggle {
+  display: flex;
+  border: 1px solid var(--issa-border);
+  border-radius: 6px;
+  overflow: hidden;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--issa-text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    &.active { background: rgba(30, 144, 255, 0.22); color: #fff; }
+    &:hover:not(.active) { background: var(--issa-surface); }
+  }
+}
+
+.dash__user {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+
+  i { color: var(--issa-text-muted); }
+}
+
+.dash__logout {
+  background: transparent;
+  border: 1px solid var(--issa-border);
+  color: var(--issa-text-muted);
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+
+  &:hover { color: #ff6b6b; border-color: #ff6b6b; }
+}
+
+/* ----------------------------- BODY GRID --------------------------- */
+.dash__body {
+  flex: 1;
+  min-height: 0; /* critical so children can scroll within the grid */
+  display: grid;
+  grid-template-columns: 220px 1fr 380px; /* FE-2 spec */
+}
+
+.dash__left,
+.dash__right {
+  min-height: 0;
+  background: var(--issa-surface);
+  overflow: hidden;
+}
+.dash__left { border-right: 1px solid var(--issa-border); }
+.dash__right { border-left: 1px solid var(--issa-border); }
+
+.dash__centre {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Both centre components fill the panel; the inactive one is hidden. */
+.dash__centre app-map-view,
+.dash__centre app-cesium-view {
+  position: absolute;
+  inset: 0;
+}
+.hidden { display: none !important; }

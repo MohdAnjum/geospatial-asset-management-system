@@ -1,0 +1,97 @@
+<!--
+  ADD-ASSET DIALOG
+  Field-level validation messages appear only after a control is touched.
+  The Save button stays enabled so clicking it surfaces all errors at once.
+-->
+<p-dialog
+  header="Add Asset"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '420px' }"
+  [draggable]="false"
+  [dismissableMask]="true"
+>
+  <form class="asset-form" [formGroup]="form" (ngSubmit)="onSave()">
+    <!-- Name -->
+    <div class="asset-form__field">
+      <label>Name <span class="req">*</span></label>
+      <input type="text" pInputText formControlName="name" placeholder="e.g. RISAT-2BR2" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <small class="err">Name is required.</small>
+      }
+    </div>
+
+    <!-- Type + Status side by side -->
+    <div class="asset-form__row">
+      <div class="asset-form__field">
+        <label>Asset Type <span class="req">*</span></label>
+        <p-select
+          formControlName="asset_type"
+          [options]="typeOptions"
+          optionLabel="label"
+          optionValue="value"
+          appendTo="body"
+        />
+      </div>
+      <div class="asset-form__field">
+        <label>Status <span class="req">*</span></label>
+        <p-select
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          appendTo="body"
+        />
+      </div>
+    </div>
+
+    <!-- Latitude + Longitude -->
+    <div class="asset-form__row">
+      <div class="asset-form__field">
+        <label>Latitude <span class="req">*</span></label>
+        <p-inputNumber
+          formControlName="latitude"
+          [min]="-90"
+          [max]="90"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="6"
+          placeholder="-90 to 90"
+        />
+        @if (form.controls.latitude.touched && form.controls.latitude.invalid) {
+          <small class="err">Enter a latitude between -90 and 90.</small>
+        }
+      </div>
+      <div class="asset-form__field">
+        <label>Longitude <span class="req">*</span></label>
+        <p-inputNumber
+          formControlName="longitude"
+          [min]="-180"
+          [max]="180"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="6"
+          placeholder="-180 to 180"
+        />
+        @if (form.controls.longitude.touched && form.controls.longitude.invalid) {
+          <small class="err">Enter a longitude between -180 and 180.</small>
+        }
+      </div>
+    </div>
+
+    <!-- Altitude -->
+    <div class="asset-form__field">
+      <label>Altitude (km)</label>
+      <p-inputNumber
+        formControlName="altitude_km"
+        [min]="0"
+        [maxFractionDigits]="3"
+        placeholder="0"
+      />
+    </div>
+  </form>
+
+  <!-- Footer actions -->
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" [text]="true" (onClick)="close()" />
+    <p-button label="Save asset" icon="pi pi-check" (onClick)="onSave()" />
+  </ng-template>
+</p-dialog>

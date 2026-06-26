@@ -1,0 +1,32 @@
+.asset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+
+  &__row {
+    display: flex;
+    gap: 12px;
+
+    .asset-form__field { flex: 1; }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+
+    label { color: var(--issa-text-muted); }
+    .req { color: #ff6b6b; }
+    .err { color: #ff6b6b; font-size: 11px; }
+
+    /* Make PrimeNG inputs fill the field width. */
+    input,
+    ::ng-deep .p-select,
+    ::ng-deep .p-inputnumber,
+    ::ng-deep .p-inputnumber input {
+      width: 100%;
+    }
+  }
+}
