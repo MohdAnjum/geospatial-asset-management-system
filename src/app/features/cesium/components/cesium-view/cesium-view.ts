@@ -60,7 +60,15 @@ export class CesiumViewComponent implements AfterViewInit, OnDestroy {
   private viewer: any;
 
   ngAfterViewInit(): void {
-    // Make sure we have data even if the user opened the 3D tab first.
+    // Runs once after #globeEl exists in the DOM. Execution forks here on a
+    // data-readiness check, and the two branches differ in TIMING:
+    //   • assets already in the store (user visited 2D map first) -> initGlobe()
+    //     runs SYNCHRONOUSLY, right now, on this same call stack.
+    //   • store empty (3D tab opened first) -> kick off an ASYNC fetch and
+    //     defer initGlobe() into the subscribe callback; this method returns
+    //     immediately and the globe builds later, once data arrives.
+    // Either way initGlobe() sees a populated store, so plotAssets() never
+    // renders an empty globe.
     if (this.assetService.assets().length === 0) {
       this.assetService.loadGeoJson().subscribe(() => this.initGlobe());
     } else {
@@ -79,15 +87,22 @@ export class CesiumViewComponent implements AfterViewInit, OnDestroy {
 
   /** Try to build the globe; fall back to the table on any failure. */
   private initGlobe(): void {
+    // cesiumReady is still null on entry (template shows neither globe nor
+    // table yet). Every exit path below MUST set it to true/false exactly once
+    // — that signal is what flips the template from "loading" to globe/fallback.
     const Cesium = window.Cesium;
 
-    // Step 1: feature-detect the global build.
+    // Step 1: feature-detect the global build. If the <script> never loaded,
+    // bail BEFORE touching any Cesium API — set false and the template swaps in
+    // the orbitalAssets table. Early return means Step 2 never runs.
     if (typeof Cesium === 'undefined') {
       this.cesiumReady.set(false);
       return;
     }
 
     // Step 2: construct the viewer defensively (WebGL may be unavailable).
+    // The whole build runs in order — token, viewer, plot, camera — and any
+    // throw at any point jumps to catch, leaving cesiumReady false (fallback).
     try {
       if (environment.cesiumIonToken) {
         Cesium.Ion.defaultAccessToken = environment.cesiumIonToken;
